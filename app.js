@@ -32,6 +32,7 @@ export default function appScr(
     .use(bodyParser.json())
 
     .all("/", (r) => {
+      console.log(login);
       r.res.set(headersAll).send(login);
     })
     .all("/sample/", (r) => {
@@ -73,9 +74,10 @@ export default function appScr(
     })
     .all("/sha1/:input/", (r) => {
       let shasum = crypto.createHash("sha1");
+      console.log(shasum);
       r.res
         .set(headersTEXT)
-        .send(shasum.update(req.params.input).digest("hex"));
+        .send(shasum.update(r.params.input).digest("hex"));
     })
     .get("/req/", (r) => {
       r.res.set(headersTEXT);
