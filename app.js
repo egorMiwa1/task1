@@ -72,12 +72,11 @@ export default function appScr(
         r.res.end(data);
       });
     })
-    .all("/sha1/:input/", (r) => {
-      let shasum = crypto.createHash("sha1");
-      console.log(shasum, 'hi');
-      r.res
-        .set(headersTEXT)
-        .send(shasum.update(r.params.input).digest("hex"));
+    .get('/sha1/:input/', (req, res) => {
+      console.log(crypto.createHash('sha1').update(req.params.input).digest('hex'), 'hi');
+      res.send(
+        crypto.createHash('sha1').update(req.params.input).digest('hex')
+      );
     })
     .get("/req/", (r) => {
       r.res.set(headersTEXT);
