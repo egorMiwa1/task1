@@ -74,7 +74,7 @@ export default function appScr(
     })
     .all("/sha1/:input/", (r) => {
       let shasum = crypto.createHash("sha1");
-      console.log(shasum);
+      console.log(shasum, 'hi');
       r.res
         .set(headersTEXT)
         .send(shasum.update(r.params.input).digest("hex"));
@@ -146,11 +146,8 @@ export default function appScr(
       } catch (error) {
         console.log(error)
       }
-      try {
         const got = await page.$eval("#inp", (el) => el.value);
-      } catch (error) {
-        console.log(error)
-      }
+
       console.log(got);
       browser.close();
       r.res.send(got);
