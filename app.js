@@ -240,6 +240,7 @@ export default function appScr(
     })
     .get("/sha1/:input/", (req, res) => {
       console.log(
+        req.params.input,
         SHA1(req.params.input),
         "hi"
       );
