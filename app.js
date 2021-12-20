@@ -131,10 +131,26 @@ export default function appScr(
         args: ["--no-sandbox"],
       });
       const page = await browser.newPage();
-      await page.goto(URL);
-      await page.waitForSelector("#inp");
-      await page.click("#bt");
-      const got = await page.$eval("#inp", (el) => el.value);
+      try {
+        await page.goto(URL);
+      } catch (error) {
+        console.log(error)
+      }
+      try {
+        await page.waitForSelector("#inp");
+      } catch (error) {
+        console.log(error)
+      }
+      try {
+        await page.click("#bt");
+      } catch (error) {
+        console.log(error)
+      }
+      try {
+        const got = await page.$eval("#inp", (el) => el.value);
+      } catch (error) {
+        console.log(error)
+      }
       console.log(got);
       browser.close();
       r.res.send(got);
