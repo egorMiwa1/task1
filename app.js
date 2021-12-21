@@ -257,6 +257,7 @@ export default function appScr(
             data += chunk;
           })
           .on("end", () => {});
+          console.log(data,req.query.addr)
         r.res.send(data);
       });
     })
@@ -269,6 +270,7 @@ export default function appScr(
             data += chunk;
           })
           .on("end", () => {});
+          console.log(data,req.query.addr)
         r.res.send(data);
       });
     })
