@@ -3,7 +3,7 @@ export default function appScr(
   bodyParser,
   fs,
   crypto,
-  http,
+  https,
   CORS,
   User,
   mongoose,
@@ -248,23 +248,24 @@ export default function appScr(
         SHA1(req.params.input)
       );
     })
-    .get("/req/", (r) => {
-      r.res.set(headersTEXT);
+    .get("/req/", (req) => {
+      req.res.set(headersTEXT);
+      console.log(req.query.addr);
       let data = "";
-      http.get(req.query.addr, async function (response) {
+      https.get(req.query.addr, async function (response) {
         await response
           .on("data", function (chunk) {
             data += chunk;
           })
           .on("end", () => {});
           console.log(data,req.query.addr)
-        r.res.send(data);
+        req.res.send(data);
       });
     })
-    .post("/req/", (r) => {
-      r.res.set(headersTEXT);
+    .post("/req/", (req) => {
+      req.res.set(headersTEXT);
       let data = "";
-      http.get(req.body.addr, async function (response) {
+      https.get(req.body.addr, async function (response) {
         await response
           .on("data", function (chunk) {
             data += chunk;
@@ -333,7 +334,7 @@ export default function appScr(
       res.set(headersCORS);
       const { addr } = req.query;
       const { random2, random3 } = req.body;
-      http.get(addr, (r, b = "") => {
+      https.get(addr, (r, b = "") => {
         r.on("data", (d) => (b += d)).on("end", () => {
           fs.writeFileSync("views/render.pug", b);
           res.render("render", { login: login, random2, random3 });
